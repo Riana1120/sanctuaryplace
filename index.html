@@ -23,8 +23,8 @@
 <link rel="apple-touch-icon-precomposed" href="/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;500&family=Caveat:wght@400..700&family=Kalam:wght@300;400;700&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;500&family=Caveat:wght@400..700&family=Kalam:wght@300;400;700&family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden}
@@ -167,6 +167,8 @@ body.light-mode .music-manage-footer{color:rgba(0,0,0,0.3)}
   #control-panel{width:90%;max-width:320px;right:-100%}
   #control-panel.open{right:0}
   body.zen-mode #control-panel{right:-100%}
+  /* Reduce top gap: mobile top-bar ~56px, no need for 68px padding */
+  #editor-container{padding:56px 10px 0;padding-top:56px;padding-bottom:0}
   #editor-wrap{border-radius:16px;padding:1rem;max-width:100%;
     backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(0,0,0,0.6)}
   body.light-mode #editor-wrap{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,0.75)}
@@ -183,6 +185,9 @@ body.light-mode .music-manage-footer{color:rgba(0,0,0,0.3)}
   #kbd-hints{display:none}
   /* App title smaller */
   #app-title{font-size:13px}
+  /* Login button: top-right corner, small, out of the way */
+  .floating-login-btn,.floating-user-btn{bottom:auto!important;top:60px;right:12px;padding:4px 10px;font-size:10px;opacity:0.7}
+  .floating-login-btn svg,.floating-user-btn svg{width:12px;height:12px}
 }
 @media(max-width:480px){
   #app-title{display:none}
@@ -388,7 +393,7 @@ body.light-mode kbd{background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.12);bo
 body.light-mode .floating-login-btn,body.light-mode .floating-user-btn{background:rgba(248,245,238,0.95);box-shadow:0 2px 8px rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.12)}
 body.light-mode .floating-login-btn:hover,body.light-mode .floating-user-btn:hover{background:rgba(248,245,238,1);border-color:rgba(0,0,0,0.2);box-shadow:0 4px 12px rgba(0,0,0,0.12)}
 body.zen-mode .floating-login-btn,body.zen-mode .floating-user-btn{display:none!important}
-@media(max-width:768px){.floating-login-btn,.floating-user-btn{bottom:calc(130px + env(safe-area-inset-bottom));right:12px;padding:5px 12px;font-size:11px}.floating-login-btn svg,.floating-user-btn svg{width:14px;height:14px}}
+/* mobile login btn handled in main 768px block */
 body.light-mode kbd:hover{background:rgba(0,0,0,0.1);border-color:rgba(0,0,0,0.2)}
 
 /* Scrollbar global */
@@ -1111,9 +1116,13 @@ body.light-mode .nm-rel-editor hr{border-top-color:rgba(0,0,0,0.1)}
 #chapter-list-container{padding:10px 10px 10px 0}
 
 /* Mobile sticky button */
-/* btn-sticky-mobile removed */
+#btn-sticky-mobile{display:none;position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));left:16px;z-index:800;padding:8px 20px;background:var(--panel-bg);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:24px;color:var(--text-muted);font-size:12px;font-family:system-ui,sans-serif;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 10px rgba(0,0,0,0.18);white-space:nowrap}
+#btn-sticky-mobile:hover,#btn-sticky-mobile:active{color:var(--text);border-color:rgba(255,255,255,0.25);background:rgba(30,28,26,0.92)}
+body.light-mode #btn-sticky-mobile{background:rgba(248,245,238,0.95);box-shadow:0 2px 8px rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.12)}
+body.light-mode #btn-sticky-mobile:active{background:rgba(248,245,238,1);border-color:rgba(0,0,0,0.2)}
+@media(min-width:769px){#btn-sticky-mobile{display:none!important}}
 /* Mobile sticky panel */
-#sticky-mobile-panel{display:none;position:fixed;bottom:0;left:0;right:0;z-index:350;background:var(--panel-bg);border-top:1px solid var(--border);border-radius:20px 20px 0 0;padding:20px 16px 24px;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);transform:translateY(100%);transition:transform 0.3s cubic-bezier(.16,1,.3,1)}
+#sticky-mobile-panel{display:none;position:fixed;bottom:0;left:0;right:0;z-index:900;background:var(--panel-bg);border-top:1px solid var(--border);border-radius:20px 20px 0 0;padding:20px 16px 24px;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);transform:translateY(100%);transition:transform 0.3s cubic-bezier(.16,1,.3,1)}
 #sticky-mobile-panel.open{transform:translateY(0)}
 .mobile-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .mobile-panel-header h3{font-size:12px;font-weight:600;font-family:system-ui,sans-serif;color:var(--text);letter-spacing:0.04em}
@@ -1144,6 +1153,18 @@ body.light-mode .fr-section-divider{background:rgba(0,0,0,0.08)}
 </style>
 </head>
 <body class="theme-rain">
+<div id="app-loader" style="position:fixed;inset:0;z-index:99999;background:#12100e;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;transition:opacity 0.4s">
+  <div style="font-family:'Lora',Georgia,serif;font-size:18px;font-style:italic;color:rgba(200,168,98,0.6);letter-spacing:0.1em">Sanctuary</div>
+  <div style="width:40px;height:2px;background:rgba(200,168,98,0.15);border-radius:1px;overflow:hidden"><div style="width:40%;height:100%;background:rgba(200,168,98,0.5);border-radius:1px;animation:ldbar 1.2s ease-in-out infinite"></div></div>
+</div>
+<style>@keyframes ldbar{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}</style>
+<script>
+// Remove loader after first paint + short delay
+requestAnimationFrame(function(){setTimeout(function(){
+  var ld=document.getElementById('app-loader');
+  if(ld){ld.style.opacity='0';setTimeout(function(){ld.remove()},400);}
+},300);});
+</script>
 
 <!-- Auth Screen -->
 <div id="sync-merge-overlay"></div>
@@ -1887,7 +1908,7 @@ body.light-mode .fr-section-divider{background:rgba(0,0,0,0.08)}
 </div>
 
 <!-- Mobile sticky floating button + panel -->
-<!-- btn-sticky-mobile removed -->
+<button id="btn-sticky-mobile" style="display:none" data-i18n="btnStickyMobile">Sticky</button>
 <div id="sticky-mobile-panel">
   <div class="mobile-panel-header">
     <h3 data-i18n="stickyMobileTitle">Sticky Notes</h3>
@@ -2083,7 +2104,7 @@ body.light-mode .fr-section-divider{background:rgba(0,0,0,0.08)}
 <!-- Hidden file input for background upload -->
 <input type="file" id="bg-file-input" accept="image/jpeg,image/png,image/webp" style="display:none">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" async id="supabase-sdk"></script>
 <script>
 'use strict';
 
@@ -2096,11 +2117,17 @@ let sbClient = null;
 let currentUser = null;
 let _syncTimer = null;
 
-try {
-  sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-} catch(e) {
-  console.warn('Supabase init failed, running in offline mode');
+function _initSupabase() {
+  try {
+    if(window.supabase) {
+      sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      if(typeof checkSession === 'function') checkSession();
+    }
+  } catch(e) { console.warn('Supabase init failed, running in offline mode'); }
 }
+// If SDK already loaded (cached), init now; otherwise wait for async load
+if(window.supabase) { _initSupabase(); }
+else { document.getElementById('supabase-sdk').addEventListener('load', _initSupabase); }
 
 // ═══════════════════════════════════════════════════════════════
 //  SETTINGS
@@ -2118,7 +2145,7 @@ const DEFAULTS = {
   zenColor:'#ffffff',
   musicVol:0,
   panelBrightness:80,
-  showPomodoro:true,
+  showPomodoro:false,
   pomoWork:25, pomoBreak:5, pomoPos:null, pomoSize:100,
   sceneAudio:{}  // {forest:'forest_birds', seaside:'waves_gentle', ...} persisted selections
 };
@@ -8469,36 +8496,41 @@ function applyToUI() {
 //  INIT
 // ═══════════════════════════════════════════════════════════════
 function init() {
+  // Phase 1: Instant - show content ASAP
   loadSettings();
-  loadStats();
   applyToUI();
   applyLang();
-  // Load saved content
   const saved=loadContent();
   if(saved){ editor.innerHTML=saved; }
-  // After loading, initialize daily base if needed
-  checkDailyReset(lastWordCount);
-  if(saved){ updateStats(); }
-  // Apply mode/scene (theme + animation)
-  if(S.scene && S.scene !== 'none') {
-    setScene(S.scene);
-  } else {
-    setMode(S.mode);
-  }
-  applyBackground();
-  updateFavScene();
-  resizeCanvases();
-  startAnim();
-  initOnboarding();
-  HistoryMgr.init();
-  window.addEventListener('resize', ()=>{ resizeCanvases(); startAnim(); });
-  if(window.visualViewport) window.visualViewport.addEventListener('resize', ()=>{ resizeCanvases(); });
-  // Multiple event types to ensure iOS/iPad audio unlock
-  document.addEventListener('pointerdown', ensureAudio, {once:true});
-  document.addEventListener('touchstart', ensureAudio, {once:true});
-  document.addEventListener('touchend', ensureAudio, {once:true});
-  document.addEventListener('click', ensureAudio, {once:true});
-  document.addEventListener('keydown', ensureAudio, {once:true});
+
+  // Phase 2: Deferred - heavy work after first paint
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      loadStats();
+      checkDailyReset(lastWordCount);
+      if(saved){ updateStats(); }
+      // Apply mode/scene (theme + animation)
+      if(S.scene && S.scene !== 'none') {
+        setScene(S.scene);
+      } else {
+        setMode(S.mode);
+      }
+      applyBackground();
+      updateFavScene();
+      resizeCanvases();
+      startAnim();
+      initOnboarding();
+      HistoryMgr.init();
+      window.addEventListener('resize', ()=>{ resizeCanvases(); startAnim(); });
+      if(window.visualViewport) window.visualViewport.addEventListener('resize', ()=>{ resizeCanvases(); });
+      // Multiple event types to ensure iOS/iPad audio unlock
+      document.addEventListener('pointerdown', ensureAudio, {once:true});
+      document.addEventListener('touchstart', ensureAudio, {once:true});
+      document.addEventListener('touchend', ensureAudio, {once:true});
+      document.addEventListener('click', ensureAudio, {once:true});
+      document.addEventListener('keydown', ensureAudio, {once:true});
+    }, 50);
+  });
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -8653,8 +8685,9 @@ function init() {
     const { data, error } = await sbClient.auth.signInWithPassword({ email, password: pw });
     btn.disabled = false;
     if(error) {
+      console.error('[Sanctuary Auth] Login error:', error.message, error.status, error);
       const msg = error.message || '';
-      if(msg.includes('Invalid login')) showError(S.lang==='zh'?'\u90ae\u7bb1\u6216\u5bc6\u7801\u9519\u8bef':'Invalid email or password');
+      if(msg.includes('Invalid login')) showError(S.lang==='zh'?'\u90ae\u7bb1\u6216\u5bc6\u7801\u9519\u8bef\uff08'+msg+'\uff09':'Invalid email or password ('+msg+')');
       else if(msg.includes('Email not confirmed')) showError(S.lang==='zh'?'\u8bf7\u5148\u9a8c\u8bc1\u90ae\u7bb1':'Please verify your email first');
       else showError(msg);
       return;
@@ -8697,8 +8730,13 @@ function init() {
     try { localStorage.setItem(ACCT_KEY, JSON.stringify(d)); } catch(e) {}
   }
 
+  function _getLocalDateStr() {
+    // 固定使用北京时间 (UTC+8)
+    var n = new Date(Date.now() + 8 * 3600000);
+    return n.getUTCFullYear()+'-'+String(n.getUTCMonth()+1).padStart(2,'0')+'-'+String(n.getUTCDate()).padStart(2,'0');
+  }
   function _resetDailyIfNeeded(d) {
-    var today = new Date().toISOString().slice(0,10);
+    var today = _getLocalDateStr();
     if(d.lastRegDate !== today) { d.dailyCount = 0; d.lastRegDate = today; }
     return d;
   }
@@ -8723,7 +8761,7 @@ function init() {
     if(d.emails.indexOf(email) === -1) d.emails.push(email);
     d.totalCount = d.emails.length;
     d.dailyCount++;
-    d.lastRegDate = new Date().toISOString().slice(0,10);
+    d.lastRegDate = _getLocalDateStr();
     _saveAccountData(d);
   }
 
@@ -8813,7 +8851,7 @@ function init() {
 
     if(mode === 'register') {
       titleEl.textContent = zh ? '\u6ce8\u518c\u6210\u529f' : 'Registration Successful';
-      msgEl.textContent = zh ? '\u6ce8\u518c\u6210\u529f\uff01\u90ae\u7bb1\u9a8c\u8bc1\u5df2\u5173\u95ed\uff0c\u53ef\u76f4\u63a5\u767b\u5f55' : 'Registration successful! Email verification is disabled, you can log in directly.';
+      msgEl.textContent = zh ? '\u6ce8\u518c\u6210\u529f\uff01\u8bf7\u67e5\u6536\u90ae\u7bb1\u9a8c\u8bc1\u94fe\u63a5\uff0c\u9a8c\u8bc1\u540e\u5373\u53ef\u767b\u5f55' : 'Registration successful! Please check your email for verification link, then log in.';
       btnEl.textContent = zh ? '\u77e5\u9053\u4e86' : 'Got it';
       remEl.style.display = 'none';
     } else {
@@ -8875,14 +8913,25 @@ function init() {
     }
     _addAccount(email);
     showError('');
-    // Show success popup, then switch to login with email pre-filled
-    _showAccountSuccess('register', function() {
-      switchTab('login');
-      var loginEmailEl = document.getElementById('login-email');
-      if(loginEmailEl) { loginEmailEl.value = email; }
-      var loginPwEl = document.getElementById('login-password');
-      if(loginPwEl) { loginPwEl.value = ''; loginPwEl.focus(); }
-    });
+    // If session returned (email confirm disabled), auto-login directly
+    if(data.session && data.user) {
+      currentUser = data.user;
+      _loginHandled = true;
+      hideAuthScreen();
+      updateUserUI();
+      updateAuthLang();
+      syncFromCloud();
+      _showAccountSuccess('login');
+    } else {
+      // Email confirmation required - tell user to check email
+      _showAccountSuccess('register', function() {
+        switchTab('login');
+        var loginEmailEl = document.getElementById('login-email');
+        if(loginEmailEl) { loginEmailEl.value = email; }
+        var loginPwEl = document.getElementById('login-password');
+        if(loginPwEl) { loginPwEl.value = ''; loginPwEl.focus(); }
+      });
+    }
   }
 
   async function doForgotPassword() {
@@ -9102,7 +9151,10 @@ function init() {
   document.getElementById('btn-register').addEventListener('click', doRegister);
   document.getElementById('btn-reset-pw').addEventListener('click', doForgotPassword);
   document.getElementById('btn-logout').addEventListener('click', doLogout);
-  document.getElementById('btn-show-login').addEventListener('click', showAuthScreen);
+  document.getElementById('btn-show-login').addEventListener('click', function(){
+    var zh = (typeof S !== 'undefined' && S.lang === 'zh');
+    showToast(zh ? '\u8be5\u529f\u80fd\u6682\u672a\u5f00\u542f' : 'This feature is not yet available');
+  });
   // Account management
   document.getElementById('btn-manage-account').addEventListener('click', _openAccountManage);
   document.getElementById('btn-manage-account-guest').addEventListener('click', _openAccountManage);
@@ -9130,9 +9182,12 @@ function init() {
     updateUserUI();
   });
 
-  // Floating login button
+  // Floating login button (disabled - feature not yet available)
   const _floatingLoginBtn = document.getElementById('btn-login-floating');
-  if(_floatingLoginBtn) _floatingLoginBtn.addEventListener('click', showAuthScreen);
+  if(_floatingLoginBtn) _floatingLoginBtn.addEventListener('click', function(){
+    var zh = (typeof S !== 'undefined' && S.lang === 'zh');
+    showToast(zh ? '\u8be5\u529f\u80fd\u6682\u672a\u5f00\u542f' : 'This feature is not yet available');
+  });
 
   // Floating user button (logout)
   const _floatingUserBtn = document.getElementById('btn-user-floating');
@@ -10114,8 +10169,32 @@ const StickyNotes = (function() {
   }
 
   // ── Mobile panel ──
-  function openMobilePanel() { if(mobilePanel) mobilePanel.classList.add('open'); }
-  function closeMobilePanel() { if(mobilePanel) mobilePanel.classList.remove('open'); }
+  function _syncMobileContent() {
+    // Load current tab content into mobile textareas
+    ['left','right'].forEach(side => {
+      const ta = side==='left' ? mobileLeftTA : mobileRightTA;
+      if(!ta) return;
+      const id = state[side].activeId;
+      if(id) {
+        const html = getContent(side, id);
+        // Convert HTML to plain text for textarea
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html || '';
+        ta.value = (tmp.textContent || tmp.innerText || '').trim();
+        if(!ta.value) {
+          const L = getLang();
+          ta.placeholder = getDefaultPlaceholder(side, L);
+        }
+      }
+    });
+  }
+  function openMobilePanel() {
+    if(!mobilePanel) return;
+    _syncMobileContent();
+    mobilePanel.style.display='block';
+    requestAnimationFrame(()=>mobilePanel.classList.add('open'));
+  }
+  function closeMobilePanel() { if(mobilePanel) { mobilePanel.classList.remove('open'); setTimeout(()=>{if(!mobilePanel.classList.contains('open'))mobilePanel.style.display='none';},320); } }
   let mobileCurrent = 'left';
   function switchMobileTab(tab) {
     mobileCurrent=tab;
