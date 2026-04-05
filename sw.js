@@ -1,5 +1,5 @@
-// Sanctuary Service Worker v4
-const CACHE_NAME = 'sanctuary-v4';
+// Sanctuary Service Worker v12
+const CACHE_NAME = 'sanctuary-v12';
 const CORE_ASSETS = [
   '/',
   '/index.html',
@@ -9,10 +9,17 @@ const CORE_ASSETS = [
 ];
 const BG_ASSETS = [
   '/bg/drizzle.jpg',
-  '/bg/drizzle1.jpg',
-  '/bg/drizzle2.jpg',
-  '/bg/drizzle3.jpg',
-  '/bg/sunny.jpg'
+  '/bg/sunny.jpg',
+  '/bg/starry.jpg',
+  '/bg/seaside.jpg',
+  '/bg/rain.jpg',
+  '/bg/storm.jpg',
+  '/bg/snow.jpg',
+  '/bg/fog.jpg',
+  '/bg/forest.jpg',
+  '/bg/home.jpg',
+  '/bg/library.jpg',
+  '/bg/cafe.jpg'
 ];
 
 // Install: cache core assets first, bg images are optional
